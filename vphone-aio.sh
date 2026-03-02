@@ -72,6 +72,80 @@ if [ ${#missing[@]} -gt 0 ]; then
     exit 1
 fi
 
+# ── SHA-256 checksums for each split part ────────────────────────
+declare -A PART_HASHES
+PART_HASHES=(
+    [aa]="3c966247deae3fff51a640f6204e0fafc14fd5c76353ba8f28f20f7d1d29e693"
+    [ab]="c7d11bbbe32dda2b337933c736171cc94faab2c7465e75391fa49029f3b6f1b1"
+    [ac]="f422949080e7f141f32f35f8ea20c1fedffc2b97eadf0390645114feef6bb1aa"
+    [ad]="f3acfa47145207b8962ba4d20fb83eb4646934cca768906e65609d7fdde564e7"
+    [ae]="efdca69df80386b0aa7af8ac260d9ac576ed1f258429fd4ac21b5bbb87cd78fe"
+    [af]="4628852da12949361d3ea6efcf8af1532eb52194cc43a4ab4993024267947587"
+    [ag]="8bd1551511eb016325918c2d93519829be04feb54727612e74c32e4299670a88"
+)
+ALL_SUFFIXES=(aa ab ac ad ae af ag)
+
+REPO_URL="https://github.com/34306/vphone-aio/raw/refs/heads/main"
+
+# ── Download missing parts & verify hashes ───────────────────────
+download_missing_parts() {
+    local need_download=false
+    for suffix in "${ALL_SUFFIXES[@]}"; do
+        local part_file="$SCRIPT_DIR/vphone-cli.tar.zst.part_${suffix}"
+        if [ ! -f "$part_file" ]; then
+            need_download=true
+            break
+        fi
+    done
+
+    if $need_download; then
+        command -v wget >/dev/null 2>&1 || {
+            echo "ERROR: wget not found. Install with: brew install wget"
+            exit 1
+        }
+
+        echo "       Some split parts are missing. Downloading..."
+        echo ""
+        for suffix in "${ALL_SUFFIXES[@]}"; do
+            local part_file="$SCRIPT_DIR/vphone-cli.tar.zst.part_${suffix}"
+            if [ ! -f "$part_file" ]; then
+                echo "       Downloading vphone-cli.tar.zst.part_${suffix} ..."
+                wget -q --show-progress -O "$part_file" \
+                    "${REPO_URL}/vphone-cli.tar.zst.part_${suffix}?download=" || {
+                    echo "ERROR: Failed to download part_${suffix}"
+                    rm -f "$part_file"
+                    exit 1
+                }
+            fi
+        done
+        echo ""
+    fi
+}
+
+verify_hashes() {
+    echo "       Verifying SHA-256 checksums..."
+    local failed=false
+    for suffix in "${ALL_SUFFIXES[@]}"; do
+        local part_file="$SCRIPT_DIR/vphone-cli.tar.zst.part_${suffix}"
+        local expected="${PART_HASHES[$suffix]}"
+        local actual
+        actual="$(shasum -a 256 "$part_file" | awk '{print $1}')"
+        if [ "$actual" != "$expected" ]; then
+            echo "  FAIL: part_${suffix} (expected ${expected:0:12}... got ${actual:0:12}...)"
+            failed=true
+        else
+            echo "    OK: part_${suffix}"
+        fi
+    done
+    if $failed; then
+        echo ""
+        echo "ERROR: Hash verification failed. Some files may be corrupted."
+        echo "       Delete the bad parts and re-run this script to re-download them."
+        exit 1
+    fi
+    echo "       All checksums passed."
+}
+
 # ── Merge split parts & extract if needed ────────────────────────
 if [ ! -d "$PROJECT" ]; then
     command -v zstd >/dev/null 2>&1 || {
@@ -81,39 +155,41 @@ if [ ! -d "$PROJECT" ]; then
 
     # Merge split parts if the full archive doesn't exist yet
     if [ ! -f "$ARCHIVE" ]; then
-        PARTS=("$SCRIPT_DIR"/vphone-cli.tar.zst.part_*)
-        if [ ${#PARTS[@]} -eq 0 ] || [ ! -f "${PARTS[0]}" ]; then
-            echo "ERROR: No vphone-cli.tar.zst or split parts found."
-            echo "Make sure vphone-cli.tar.zst.part_* files are next to this script."
-            exit 1
-        fi
+        echo "[1/5] Checking split parts..."
+        download_missing_parts
 
-        echo "[1/4] Merging ${#PARTS[@]} split parts into vphone-cli.tar.zst ..."
+        echo "[2/5] Verifying integrity of split parts..."
+        verify_hashes
+        echo ""
+
+        PARTS=("$SCRIPT_DIR"/vphone-cli.tar.zst.part_*)
+        echo "[3/5] Merging ${#PARTS[@]} split parts into vphone-cli.tar.zst ..."
         cat "$SCRIPT_DIR"/vphone-cli.tar.zst.part_* > "$ARCHIVE"
         echo "       Done. ($(du -h "$ARCHIVE" | cut -f1))"
         echo ""
 
-        echo "[2/4] Extracting vphone-cli.tar.zst ..."
+        echo "[4/5] Extracting vphone-cli.tar.zst ..."
     else
-        echo "[1/4] vphone-cli.tar.zst already exists, skipping merge."
+        echo "[1/5] vphone-cli.tar.zst already exists, skipping download & merge."
         echo ""
-        echo "[2/4] Extracting vphone-cli.tar.zst ..."
+        echo "[4/5] Extracting vphone-cli.tar.zst ..."
     fi
 
     zstd -dc "$ARCHIVE" | tar xf - -C "$SCRIPT_DIR"
     echo "       Done."
 
-    # Clean up the merged archive to save disk space
+    # Clean up the merged archive and split parts to save disk space
     rm -f "$ARCHIVE"
-    echo "       Cleaned up archive to save space."
+    rm -f "$SCRIPT_DIR"/vphone-cli.tar.zst.part_*
+    echo "       Cleaned up archive and split parts to save space."
 else
-    echo "[1/4] vphone-cli/ already exists, skipping merge & extraction."
+    echo "[1/5] vphone-cli/ already exists, skipping merge & extraction."
 fi
 
 echo ""
 
 # ── Start iproxy tunnels ─────────────────────────────────────────
-echo "[3/4] Starting iproxy tunnels ..."
+echo "[4/5] Starting iproxy tunnels ..."
 
 iproxy 22222 22222 >/dev/null 2>&1 &
 IPROXY_SSH_PID=$!
@@ -125,7 +201,7 @@ echo "       VNC : localhost:5901  -> device:5901"
 
 # ── Build & Boot VM ──────────────────────────────────────────────
 echo ""
-echo "[4/4] Building and booting the VM ..."
+echo "[5/5] Building and booting the VM ..."
 echo ""
 echo "=========================================="
 echo ""
